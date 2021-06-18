@@ -6,26 +6,34 @@ import java.util.Scanner;
 
 public class GoodsApp {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-       List<Goods> itemList = new ArrayList<Goods>(); //ArrayList에 Goods 속성값 저장공간 생성
-       
-       Scanner sc = new Scanner(System.in);  
-       System.out.println("상품을 입력해주세요(종료 q)");
-       while(true) { //반복적상품 입력을 위한 while 문
-    	   String[] scan = (sc.nextLine()).split(",");
-    	   
-    	   String name = scan[0];
-    	   int price = Integer.parseInt(scan[1]);
-    	   int count = Integer.parseInt(scan[2]);
-    	   
-    	   Goods goods = new Goods(name, price, count);
-    	   itemList.add(goods);
-    	   if(scan.equals("q")) { //scan 이 array상태로 q값만 뺴오기 어려움.. scan 이후 split array 나중에
-    		   break;
-    	   }
-       }
-       
-    }
+		List<Goods> itemList = new ArrayList<Goods>();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("상품 입력 해주세요(종료 q)");
+		while (true) {
+			String scan = sc.nextLine();
+			if (scan.equals("q")) {
+				System.out.println("입력완료");
+				System.out.println("======================");
+				for (Goods g : itemList) {
+					System.out.println(g.GoodsInfo());
+				}
+				System.out.println("모든 상품의 갯수는" + Goods.getAllCount() + "개입니다.");
+				break;
+			}
+
+			String[] scanInfo = scan.split(",");
+			String name = scanInfo[0];
+			int price = Integer.parseInt(scanInfo[1]);
+			int count = Integer.parseInt(scanInfo[2]);
+
+			Goods goods = new Goods(name, price, count);
+			itemList.add(goods);
+		}
+
+		sc.close();
+
+	}
 
 }
